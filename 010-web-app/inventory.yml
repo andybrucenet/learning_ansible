@@ -1,0 +1,7 @@
+# inventory
+db_and_web_server:
+  ansible_host: 192.168.50.5
+  ansible_user: vagrant
+  ansible_ssh_pass: Passw0rd
+  become: true
+

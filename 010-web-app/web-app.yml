@@ -1,0 +1,13 @@
+# web-app playbook
+- name: Deploy Web App
+  hosts: db_and_web_server
+  tasks:
+  - name: Install Dependencies
+  - name: Install MySQL
+  - name: Start MySQL
+  - name: Create App DB
+  - name: Create App DB User
+  - name: Install Python Flask
+  - name: Copy web server code
+  - name: Run web server
+

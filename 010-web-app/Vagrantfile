@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "sab-centos/7"
+  config.vm.network "private_network", ip: "192.168.50.5"
+
+  # do not auto-update guest tools
+  #config.vbguest.auto_update = false
+
+  # config
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "010-ansible-web-app"
+  end
+
+  # configure the VM
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "***Running as $(whoami)"
+    echo '***System update...'
+    ulimit -n 4048
+    yum clean all
+    yum update -y
+
+    echo '***Bogus password and ssh...'
+    echo 'Passw0rd' | passwd --stdin vagrant
+    set -x
+    sed -i -e 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    systemctl restart sshd
+    set +x
+  SHELL
+end
+
